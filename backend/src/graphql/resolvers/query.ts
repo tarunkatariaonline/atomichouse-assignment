@@ -12,7 +12,11 @@ enum Status {
 export const queryResolvers = {
     Query: {
       tasks: async() => {
-        const tasks = await prisma.task.findMany()
+        const tasks = await prisma.task.findMany({
+          orderBy:{
+            createdAt:"asc"
+          }
+        })
         return tasks
       },
       taskById:async(parent:any,args:{

@@ -6,9 +6,9 @@ import { Status, Task } from "@prisma/client";
 export const mutationResolvers = {
   Mutation: {
 
-    createTask: async (parent: any, args: { title: string, description: string }) => {
+    createTask: async (parent: any, args: { title: string, description?: string  }) => {
 
-      //  console.log(args)
+      
 
       const task = await prisma.task.create({
         data: {
@@ -34,18 +34,18 @@ export const mutationResolvers = {
           },
         }
        )
-     return "Deleted Successfully"
+     return true
       }catch{
-        throw new Error("Task id not found !")
+        return false
       }
    
     },
     updateTask:async(parent:any,args:{  id:string,   title?:string, description?:string,  status:Status
     })=>{
     
-
+    console.log(args)
        
-      await prisma.task.update({
+    const task  =  await prisma.task.update({
         where:{
           id:args.id
         },
@@ -55,7 +55,7 @@ export const mutationResolvers = {
             status:args.status
         }
       })
-      return "Updated Successfully"
+      return task
     }
   },
 };
