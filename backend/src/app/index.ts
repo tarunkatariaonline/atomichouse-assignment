@@ -1,10 +1,10 @@
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
-import { typeDefs } from '../graphql/schema';
+import { Task } from './tables/task';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import express from 'express';
-import { resolvers } from './resolvers';
+import express, { query } from 'express';
+
 
 
 export const  initServer = async()=>{
@@ -17,7 +17,26 @@ export const  initServer = async()=>{
     
       }))
     app.use(bodyParser.json());
-    const graphqlServer = new ApolloServer({ typeDefs, resolvers })
+    const graphqlServer = new ApolloServer({ typeDefs:`#graphql
+    ${Task.types}
+    type Query{
+        ${Task.quaries}
+        
+    }
+
+    type Mutation{
+        ${Task.mutations}
+    }
+        `, resolvers:{
+            Query:{
+                ...Task.resolvers.quaries
+
+
+            },
+            Mutation:{
+                 ...Task.resolvers.mutations
+            }
+        }})
     await graphqlServer.start()
     app.use('/graphql', expressMiddleware(graphqlServer));
     return app;

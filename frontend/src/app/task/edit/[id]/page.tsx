@@ -9,13 +9,13 @@ import { useGetSingleTask } from '@/hooks/getTask'
 
 import { useUpdateTask } from '@/hooks/taskUpdate'
 import { useState,useCallback,useEffect } from 'react'
-
+import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 
 
 const Page = ({ params }: { params: { id: string } }) => {
    const {id} = params
-   
+   const router = useRouter()
    const [status,setStatus] = useState<string>("TODO")
     const [title,setTitle] = useState<string>("")
     const [description,setDescription] = useState<string|undefined>("")
@@ -43,6 +43,8 @@ const Page = ({ params }: { params: { id: string } }) => {
             description,
             status
          })
+
+         router.push('/')
     },[mutate,id,title,description,status])
 
 
@@ -58,7 +60,7 @@ const Page = ({ params }: { params: { id: string } }) => {
 
 
     return (
-        <div className=' w-full  min-h-[90vh] flex justify-center items-center bg-gray-200'>
+        <div className=' w-full  min-h-[100vh] flex justify-center items-center bg-gray-200'>
             <div className=' w-[40%]  max-md:w-[90%] shadow-xl  bg-white  min-h-56 rounded-md'>
 
                 <div className=' w-full flex justify-center m-2'>

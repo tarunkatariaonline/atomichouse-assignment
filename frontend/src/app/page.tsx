@@ -11,6 +11,7 @@ import { useGetAllTasks } from "@/hooks/getTask";
 import Link from "next/link";
 import { useTaskDelete } from "@/hooks/taskDelete";
 import { useUpdateTask } from "@/hooks/taskUpdate";
+import CreateTask from "./Components/ClientComponents/CreateTask";
 
 
 
@@ -45,7 +46,7 @@ mutateUpdate({id,
 
  if(isLoading){
   return <div>
-<div className=' w-full  min-h-[90vh] flex justify-center items-center bg-gray-200'>
+<div className=' w-full  min-h-[100vh] flex justify-center items-center bg-gray-200'>
    <div className=' w-[40%]  max-md:w-[90%] shadow-xl  bg-white  min-h-0 rounded-md  p-2 '>
 
 <div className=' w-full flex justify-center m-2'>
@@ -63,7 +64,7 @@ mutateUpdate({id,
 
  if(isError){
   return <div>
-<div className=' w-full  min-h-[90vh] flex justify-center items-center bg-gray-200'>
+<div className=' w-full  min-h-[100vh] flex justify-center items-center bg-gray-200'>
    <div className=' w-[40%]  max-md:w-[90%] shadow-xl  bg-white  min-h-0 rounded-md  p-2 '>
 
 <div className=' w-full flex justify-center m-2'>
@@ -90,7 +91,7 @@ mutateUpdate({id,
 
 <div>
  
-<div className=' w-full  min-h-[90vh] flex flex-col justify-center items-center bg-gray-200'>
+<div className=' w-full  min-h-[100vh] flex flex-col justify-center items-center bg-gray-200'>
  
    <div className=' w-[40%]  max-md:w-[90%] shadow-xl  bg-white  min-h-0 rounded-md  p-2 '>
 
@@ -99,6 +100,7 @@ mutateUpdate({id,
 </div>  
 
 
+<CreateTask/>
 {data.length===0&&<div className=" w-full  flex justify-center flex-col items-center">
    <p className=" font-semibold">No Task Found !</p>
   <Link href={'/task/create'}> <button className=" bg-blue-500 h-6 my-2 hover:bg-blue-700 text-white font-bold py-

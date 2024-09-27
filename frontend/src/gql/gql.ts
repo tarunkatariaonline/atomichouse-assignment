@@ -13,7 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\nmutation CreateTask($title: String!, $description: String){\n createTask(title: $title, description: $description){\n  id\n  title\n  \n }\n}\n\n": types.CreateTaskDocument,
+    "\nmutation CreateTask($title: String!, $description: String,$status:String){\n createTask(title: $title, description: $description,status:$status){\n  id\n  title\n  \n }\n}\n\n": types.CreateTaskDocument,
     "\nmutation DeleteTask($id: String!){\ndeleteTask(id: $id)\n}\n": types.DeleteTaskDocument,
     "\nmutation UpdateTask($id: String!, $status: String!,$title:String,$description:String),{\n  updateTask(id: $id, status: $status,title:$title,description:$description){\n    id\n  } \n}\n": types.UpdateTaskDocument,
     "\n  query GetAllTasks{\n    tasks{\n        id\n        title\n        description,\n        status\n    }\n  }\n": types.GetAllTasksDocument,
@@ -37,7 +37,7 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\nmutation CreateTask($title: String!, $description: String){\n createTask(title: $title, description: $description){\n  id\n  title\n  \n }\n}\n\n"): (typeof documents)["\nmutation CreateTask($title: String!, $description: String){\n createTask(title: $title, description: $description){\n  id\n  title\n  \n }\n}\n\n"];
+export function graphql(source: "\nmutation CreateTask($title: String!, $description: String,$status:String){\n createTask(title: $title, description: $description,status:$status){\n  id\n  title\n  \n }\n}\n\n"): (typeof documents)["\nmutation CreateTask($title: String!, $description: String,$status:String){\n createTask(title: $title, description: $description,status:$status){\n  id\n  title\n  \n }\n}\n\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
