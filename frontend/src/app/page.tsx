@@ -2,19 +2,21 @@
 
 import Image from "next/image";
 
-import { useCallback } from "react";
+import { useCallback} from "react";
 import Logo from "@/Assets/clickup-symbol-logo-BB24230BBB-seeklogo.com.png";
-import { MdDelete, MdEdit } from "react-icons/md";
+import { MdDelete} from "react-icons/md";
 
 import { useGetAllTasks } from "@/hooks/getTask";
 
-import Link from "next/link";
+
 import { useTaskDelete } from "@/hooks/taskDelete";
 import { useUpdateTask } from "@/hooks/taskUpdate";
 import CreateTask from "./Components/ClientComponents/CreateTask";
+import EditModal from "./Components/ClientComponents/EditTask";
 
 export default function Home() {
   const { data = [], isLoading, isError } = useGetAllTasks();
+
   const { mutate } = useTaskDelete();
   const { mutate: mutateUpdate } = useUpdateTask();
 
@@ -37,7 +39,7 @@ export default function Home() {
   if (isLoading) {
     return (
       <div>
-        <div className=" w-full  min-h-[100vh] flex justify-center items-center bg-gray-200">
+        <div className=" w-full relative  min-h-[100vh] flex justify-center items-center bg-gray-200">
           <div className=" w-[40%]  max-md:w-[90%] shadow-xl  bg-white  min-h-0 rounded-md  p-2 ">
             <div className=" w-full flex justify-center m-2">
               <Image width={25} height={25} src={Logo} alt="logo" />
@@ -124,12 +126,10 @@ export default function Home() {
                     >
                       <p>{task.status}</p>
                     </button>
-                    <Link href={`/task/edit/${task.id}`}>
-                      {" "}
-                      <button className=" p-1 bg-blue-500 hover:bg-blue-700 rounded-md mx-1 ">
-                        <MdEdit size={18} color="white" />
-                      </button>
-                    </Link>
+                   
+                   
+                   <EditModal taskId={task.id} taskTitle={task.title} taskDescription={task?.description} taskStatus={task.status}/>
+                  
                     <button className=" p-1 bg-red-500 hover:bg-red-700 rounded-md mx-1 ">
                       <MdDelete
                         onClick={() => {
@@ -146,6 +146,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+    
     </>
   );
 }
